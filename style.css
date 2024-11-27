@@ -1,0 +1,21 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header , main{
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     
+}
+
+button{
+    width: 90px;
+}
+
+.ep{
+    margin-top: 100px;
+    border: 5px solid rebeccapurple;
+}
