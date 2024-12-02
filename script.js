@@ -1,42 +1,58 @@
-const turnOnOff = document.getElementById ( 'turnOnOff' );
+const turnOnOff = document.getElementById('turnOnOff');
+const lamp = document.getElementById('lamp');
 
-const lamp = document.getElementById ( 'lamp' );
-
-function isLampBroken () {
-    return lamp.src.indexOf ( 'quebrada' ) > -1
+// Função para verificar se a lâmpada está quebrada
+function isLampBroken() {
+    return lamp.src.indexOf('quebrada') > -1;
 }
 
-function lampOn () {
-    if ( !isLampBroken () ) {
+// Função para ligar a lâmpada
+function lampOn() {
+    if (!isLampBroken()) {
         lamp.src = './img/ligada.jpg';
     }
 }
 
-function lampOff () {
-    if ( !isLampBroken () ) {
+// Função para desligar a lâmpada
+function lampOff() {
+    if (!isLampBroken()) {
         lamp.src = './img/desligada.jpg';
         turnOnOff.textContent = 'Ligar';
     }
 }
 
-function lampBroken () {
+// Função para quebrar a lâmpada
+function lampBroken() {
     lamp.src = './img/quebrada.jpg';
+    // Desabilitar os eventos de mouse enquanto a lâmpada está quebrada
+    lamp.removeEventListener('mouseover', lampOn);
+    lamp.removeEventListener('mouseleave', lampOff);
 }
 
-function lampOnOff () {
-    if ( turnOnOff.textContent == 'Ligar' ) {
+// Função para alternar entre ligar e desligar a lâmpada
+function lampOnOff() {
+    if (turnOnOff.textContent == 'Ligar') {
         lampOn();
         turnOnOff.textContent = 'Desligar';
-    }else{
+    } else {
         lampOff();
         turnOnOff.textContent = 'Ligar';
     }
 }
 
+// Verifica se a lâmpada está ligada antes de permitir que o evento `mouseleave` desligue a lâmpada
+lamp.addEventListener('mouseover', lampOn);
+lamp.addEventListener('mouseleave', () => {
+    // Só desliga a lâmpada se ela não estiver ligada
+    if (turnOnOff.textContent === 'Ligar') {
+        lampOff();
+    }
+});
 
-turnOnOff.addEventListener ( 'click', lampOnOff );
+// Evento de duplo clique para quebrar a lâmpada
+lamp.addEventListener('dblclick', lampBroken);
 
-lamp.addEventListener ( 'mouseover', lampOn );
-lamp.addEventListener ( 'mouseleave', lampOff );
-lamp.addEventListener ( 'dblclick', lampBroken );
- 
+// Evento de clique no botão de ligar/desligar
+turnOnOff.addEventListener('click', lampOnOff);
+
+
