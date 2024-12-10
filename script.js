@@ -10,6 +10,7 @@ function isLampBroken() {
 function lampOn() {
     if (!isLampBroken()) {
         lamp.src = './img/ligada.jpg';
+        document.body.style.backgroundColor = 'red';
     }
 }
 
@@ -39,6 +40,8 @@ function lampOnOff() {
         turnOnOff.textContent = 'Ligar';
     }
 }
+
+
 
 // Verifica se a lâmpada está ligada antes de permitir que o evento `mouseleave` desligue a lâmpada
 lamp.addEventListener('mouseover', lampOn);
